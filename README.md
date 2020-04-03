@@ -156,7 +156,7 @@ Dentro del componente, definimos las screens a las que vamos a poder navegar a p
 Para esto, en cada objeto screen que agreguemos, modificamos la propiedad `navigationOptions`.
 
 ```javascript
-import {createBottomTabNavigator} from 'react-navigation-tabs';
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
 createBottomTabNavigator(RouteConfigs, TabNavigatorConfig);
 ```
@@ -170,43 +170,43 @@ const AppTabNavigator = createBottomTabNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-home" size={24} color={tintColor} />
-      ),
-    },
+      )
+    }
   },
   Message: {
     screen: MessageScreen,
     navigationOptions: {
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-chatbubbles" size={24} color={tintColor} />
-      ),
-    },
+      )
+    }
   },
   Post: {
     screen: PostScreen,
     navigationOptions: {
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-add-circle" size={24} color={tintColor} />
-      ),
-    },
+      )
+    }
   },
   Notification: {
     screen: NotificationScreen,
     navigationOptions: {
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-notifications" size={24} color={tintColor} />
-      ),
-    },
+      )
+    }
   },
   Profile: {
     screen: ProfileScreen,
     navigationOptions: {
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-person" size={24} color={tintColor} />
-      ),
-    },
-  },
+      )
+    }
+  }
 });
 ```
 
@@ -240,3 +240,86 @@ Los parametros de configuracion entre `createStackNavigator` y `createBottomTabN
 - `keyboardHandlingEnabled` -Si es `false`, el teclado en pantalla no va a ser automaticamente ocultado cuando se navegue a una nueva pantalla. Default es `true`.
 
 ## [Firebase Storage (Firestore)](https://firebase.google.com/docs/firestore?hl=es-419)
+
+## [Expo Permissions](https://docs.expo.io/versions/latest/sdk/permissions/)
+
+```javascript
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+
+getPhotoPermission = async () => {
+  if (Constants.platform.ios) {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+    if (status != "granted") {
+      alert("We need permission to acces your camera roll");
+    }
+  }
+};
+```
+
+### [Expo Image Picker](https://docs.expo.io/versions/latest/sdk/imagepicker/)
+
+Provee acceso a la interfaz de usuario del sistema para elegir fotos y videos o tomar una foto con la camara.
+`npm install expo-image-picker`
+
+```javascript
+import * as ImagePicker from "expo-image-picker";
+
+
+export default class PostScreen extends React.Component {
+  state = {
+    image: ""
+  };
+
+pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3]
+    });
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
+
+```
+
+## Hide Keyboard
+
+Este es un problema con el que me encontre a la hora de usar componentes como `<TextInput>` que tienen un atributo de `autoFocus`. Cuando se montaba el componente de la Screen, automaticamente se activaba el focus sobre el componente TextInput y se abria el teclado y no habia manera de esconder el teclado tappeando en otro lado.
+La aparente solucion a este problema es wrappear toda la screen usando **`ScrollView`**.
+
+```javascript
+import { ScrollView } from "react-native";
+export default class PostScreen extends React.Component {
+  render() {
+    return <ScrollView>// el resto de codigo.............</ScrollView>;
+  }
+}
+```
+
+## [Firebase BUG](https://github.com/expo/expo/issues/7507)
+
+### Firebase Firestore: Can't find variable: crypto
+
+El problema se "solucionó" instalando base-64 con `npm install base-64` y agregando el siguiente bloque en `App.js`
+
+```javascript
+import { decode, encode } from "base-64";
+global.crypto = require("@firebase/firestore");
+global.crypto.getRandomValues = byteArray => {
+  for (let i = 0; i < byteArray.length; i++) {
+    byteArray[i] = Math.floor(256 * Math.random());
+  }
+};
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
+```
