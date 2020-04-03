@@ -18,6 +18,22 @@ import * as firebase from "firebase";
 // import * as firebaseConfig from './keys';
 const firebaseConfig = require("./keys");
 
+import { decode, encode } from "base-64";
+global.crypto = require("@firebase/firestore");
+global.crypto.getRandomValues = byteArray => {
+  for (let i = 0; i < byteArray.length; i++) {
+    byteArray[i] = Math.floor(256 * Math.random());
+  }
+};
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
+
 firebase.initializeApp(firebaseConfig);
 
 const AppContainer = createStackNavigator(
@@ -88,8 +104,7 @@ const AppContainer = createStackNavigator(
   },
   {
     mode: "modal",
-    headerMode: "none",
-    initialRouteName: "postModal"
+    headerMode: "none"
   }
 );
 
