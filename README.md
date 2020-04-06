@@ -324,6 +324,11 @@ if (!global.atob) {
 }
 ```
 
+## ¿Porque usar <ScrollView>?
+
 ## FlatLists
+
+La manera de usar una FlatList seria la siguiente:
+Se crea
 
 ## Layout Animation

@@ -121,7 +121,7 @@ export default createAppContainer(
       Auth: AuthStack,
     },
     {
-      initialRouteName: "Auth",
+      initialRouteName: "Loading",
     }
   )
 );

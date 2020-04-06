@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as firebase from "firebase";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default class RegisterScreen extends React.Component {
   static navigationOptions = {
@@ -36,122 +37,124 @@ export default class RegisterScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <Image
-          source={require("../assets/header.png")}
-          style={{
-            height: 400,
-            width: 400,
-            marginTop: -200,
-            marginLeft: -100,
-            marginBottom: -30,
-          }}
-        />
-        <TouchableOpacity
-          style={styles.back}
-          onPress={() => this.props.navigation.goBack()}
-        >
-          <Ionicons name="ios-arrow-round-back" size={32} color="#FFF" />
-        </TouchableOpacity>
-        <View
-          style={{
-            position: "absolute",
-            top: 64,
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <Text style={styles.greeting}>{"Registrate!"}.</Text>
-          <TouchableOpacity style={styles.avatar}>
-            <Ionicons name="ios-add" size={40} color="#FFF"></Ionicons>
+      <ScrollView>
+        <View style={styles.container}>
+          <StatusBar barStyle="light-content" />
+          <Image
+            source={require("../assets/header.png")}
+            style={{
+              height: 400,
+              width: 400,
+              marginTop: -200,
+              marginLeft: -100,
+              marginBottom: -30,
+            }}
+          />
+          <TouchableOpacity
+            style={styles.back}
+            onPress={() => this.props.navigation.goBack()}
+          >
+            <Ionicons name="ios-arrow-round-back" size={32} color="#FFF" />
           </TouchableOpacity>
-        </View>
-        <View style={styles.errorMessage}>
-          {this.state.errorMessage && (
-            <Text style={styles.error}>{this.state.errorMessage}</Text>
-          )}
-        </View>
-
-        <View style={styles.form}>
-          <View>
-            <Text style={styles.inputTitle}>Full name</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              onChangeText={(name) =>
-                this.setState({
-                  name,
-                })
-              }
-              value={this.state.name}
-            />
-          </View>
-          <View style={{ marginTop: 32 }}>
-            <Text style={styles.inputTitle}>Email Address</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              onChangeText={(email) =>
-                this.setState({
-                  email,
-                })
-              }
-              value={this.state.email}
-            />
-          </View>
-          <View style={{ marginTop: 32 }}>
-            <Text style={styles.inputTitle}>Password</Text>
-            <TextInput
-              style={styles.input}
-              secureTextEntry
-              autoCapitalize="none"
-              onChangeText={(password) =>
-                this.setState({
-                  password,
-                })
-              }
-              value={this.state.password}
-            />
-          </View>
-        </View>
-
-        <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-          <Text
+          <View
             style={{
-              color: "#FFF",
-              fontWeight: "500",
+              position: "absolute",
+              top: 64,
+              alignItems: "center",
+              width: "100%",
             }}
           >
-            Registrate
-          </Text>
-        </TouchableOpacity>
+            <Text style={styles.greeting}>{"Registrate!"}.</Text>
+            <TouchableOpacity style={styles.avatar}>
+              <Ionicons name="ios-add" size={40} color="#FFF"></Ionicons>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.errorMessage}>
+            {this.state.errorMessage && (
+              <Text style={styles.error}>{this.state.errorMessage}</Text>
+            )}
+          </View>
 
-        <TouchableOpacity
-          style={{
-            alignSelf: "center",
-            marginTop: 20,
-          }}
-          onPress={() => this.props.navigation.navigate("Login")}
-        >
-          <Text
-            style={{
-              color: "#414959",
-              fontSize: 13,
-            }}
-          >
-            ¿Ya tenes una cuenta?{" "}
+          <View style={styles.form}>
+            <View>
+              <Text style={styles.inputTitle}>Full name</Text>
+              <TextInput
+                style={styles.input}
+                autoCapitalize="none"
+                onChangeText={(name) =>
+                  this.setState({
+                    name,
+                  })
+                }
+                value={this.state.name}
+              />
+            </View>
+            <View style={{ marginTop: 32 }}>
+              <Text style={styles.inputTitle}>Email Address</Text>
+              <TextInput
+                style={styles.input}
+                autoCapitalize="none"
+                onChangeText={(email) =>
+                  this.setState({
+                    email,
+                  })
+                }
+                value={this.state.email}
+              />
+            </View>
+            <View style={{ marginTop: 32 }}>
+              <Text style={styles.inputTitle}>Password</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                autoCapitalize="none"
+                onChangeText={(password) =>
+                  this.setState({
+                    password,
+                  })
+                }
+                value={this.state.password}
+              />
+            </View>
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
             <Text
               style={{
-                color: "#009372",
+                color: "#FFF",
                 fontWeight: "500",
               }}
             >
-              Loggeate
+              Registrate
             </Text>
-          </Text>
-        </TouchableOpacity>
-      </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              alignSelf: "center",
+              marginTop: 20,
+            }}
+            onPress={() => this.props.navigation.navigate("Login")}
+          >
+            <Text
+              style={{
+                color: "#414959",
+                fontSize: 13,
+              }}
+            >
+              ¿Ya tenes una cuenta?{" "}
+              <Text
+                style={{
+                  color: "#009372",
+                  fontWeight: "500",
+                }}
+              >
+                Loggeate
+              </Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     );
   }
 }
