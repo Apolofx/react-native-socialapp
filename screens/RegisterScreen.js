@@ -6,32 +6,32 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  StatusBar
+  StatusBar,
 } from "react-native";
-import Ionicons from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 
 export default class RegisterScreen extends React.Component {
   static navigationOptions = {
-    headerShown: false
+    headerShown: false,
   };
   state = {
     name: "",
     email: "",
     password: "",
-    errorMessage: null
+    errorMessage: null,
   };
 
   handleSignUp = () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(userCredentials => {
+      .then((userCredentials) => {
         return userCredentials.user.updateProfile({
-          displayName: this.state.name
+          displayName: this.state.name,
         });
       })
-      .catch(error => this.setState({ errorMessage: error.message }));
+      .catch((error) => this.setState({ errorMessage: error.message }));
   };
 
   render() {
@@ -45,7 +45,7 @@ export default class RegisterScreen extends React.Component {
             width: 400,
             marginTop: -200,
             marginLeft: -100,
-            marginBottom: -30
+            marginBottom: -30,
           }}
         />
         <TouchableOpacity
@@ -59,7 +59,7 @@ export default class RegisterScreen extends React.Component {
             position: "absolute",
             top: 64,
             alignItems: "center",
-            width: "100%"
+            width: "100%",
           }}
         >
           <Text style={styles.greeting}>{"Registrate!"}.</Text>
@@ -79,9 +79,9 @@ export default class RegisterScreen extends React.Component {
             <TextInput
               style={styles.input}
               autoCapitalize="none"
-              onChangeText={name =>
+              onChangeText={(name) =>
                 this.setState({
-                  name
+                  name,
                 })
               }
               value={this.state.name}
@@ -92,9 +92,9 @@ export default class RegisterScreen extends React.Component {
             <TextInput
               style={styles.input}
               autoCapitalize="none"
-              onChangeText={email =>
+              onChangeText={(email) =>
                 this.setState({
-                  email
+                  email,
                 })
               }
               value={this.state.email}
@@ -106,9 +106,9 @@ export default class RegisterScreen extends React.Component {
               style={styles.input}
               secureTextEntry
               autoCapitalize="none"
-              onChangeText={password =>
+              onChangeText={(password) =>
                 this.setState({
-                  password
+                  password,
                 })
               }
               value={this.state.password}
@@ -120,7 +120,7 @@ export default class RegisterScreen extends React.Component {
           <Text
             style={{
               color: "#FFF",
-              fontWeight: "500"
+              fontWeight: "500",
             }}
           >
             Registrate
@@ -130,21 +130,21 @@ export default class RegisterScreen extends React.Component {
         <TouchableOpacity
           style={{
             alignSelf: "center",
-            marginTop: 20
+            marginTop: 20,
           }}
           onPress={() => this.props.navigation.navigate("Login")}
         >
           <Text
             style={{
               color: "#414959",
-              fontSize: 13
+              fontSize: 13,
             }}
           >
             ¿Ya tenes una cuenta?{" "}
             <Text
               style={{
                 color: "#009372",
-                fontWeight: "500"
+                fontWeight: "500",
               }}
             >
               Loggeate
@@ -158,42 +158,42 @@ export default class RegisterScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   greeting: {
     marginTop: 32,
     marginBottom: 10,
     fontSize: 18,
     fontWeight: "400",
-    textAlign: "center"
+    textAlign: "center",
   },
   errorMessage: {
     height: 72,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 30
+    marginHorizontal: 30,
   },
   error: {
     color: "#E9446A",
     fontSize: 13,
     fontWeight: "600",
-    textAlign: "center"
+    textAlign: "center",
   },
   form: {
     marginBottom: 10,
-    marginHorizontal: 30
+    marginHorizontal: 30,
   },
   inputTitle: {
     color: "#8A8F9E",
     fontSize: 10,
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   input: {
     borderBottomColor: "#8A8F9E",
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
     fontSize: 15,
-    color: "#161F3D"
+    color: "#161F3D",
   },
   button: {
     marginHorizontal: 30,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     height: 52,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   back: {
     position: "absolute",
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: "rgba(21, 22, 48, 0.1)",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   avatar: {
     width: 100,
@@ -221,6 +221,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E1E2E6",
     marginTop: 15,
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

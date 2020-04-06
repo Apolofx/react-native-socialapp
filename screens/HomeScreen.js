@@ -11,8 +11,15 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import posts from "../helpers/randomObjects";
 import { FlatList } from "react-native-gesture-handler";
+import moment from "moment";
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pressed: false,
+    };
+  }
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
@@ -27,7 +34,9 @@ export default class HomeScreen extends React.Component {
           >
             <View>
               <Text style={styles.name}>{post.name}</Text>
-              <Text style={styles.timestamp}>{post.timestamp}</Text>
+              <Text style={styles.timestamp}>
+                {moment(post.timestamp).fromNow()}
+              </Text>
             </View>
 
             <Ionicons name="ios-more" size={24} color="#73788B" />
@@ -40,12 +49,16 @@ export default class HomeScreen extends React.Component {
           />
 
           <View style={{ flexDirection: "row" }}>
-            <Ionicons
-              name="ios-heart-empty"
-              size={24}
-              color="#73788B"
-              style={{ marginRight: 16 }}
-            />
+            <TouchableOpacity
+              onPress={() => this.setState({ pressed: !this.state.pressed })}
+            >
+              <Ionicons
+                name={this.state.pressed ? "ios-heart" : "ios-heart-empty"}
+                size={24}
+                color="#73788B"
+                style={{ marginRight: 16 }}
+              />
+            </TouchableOpacity>
             <Ionicons
               name="ios-chatboxes"
               size={24}

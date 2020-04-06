@@ -15,9 +15,9 @@ const posts = Array.from(
 );
 // const pk = proto_posts.keys();
 
-posts.forEach((value) => {
+posts.forEach(function (value, i) {
   value.avatar = require("../assets/tempAvatar.jpg"); //
-  value.image = require(`../assets/tempImage1.jpg`);
+  value.image = require("../assets/tempImage1.jpg");
 });
 console.log(posts);
 

@@ -20,7 +20,7 @@ const firebaseConfig = require("./keys");
 
 import { decode, encode } from "base-64";
 global.crypto = require("@firebase/firestore");
-global.crypto.getRandomValues = byteArray => {
+global.crypto.getRandomValues = (byteArray) => {
   for (let i = 0; i < byteArray.length; i++) {
     byteArray[i] = Math.floor(256 * Math.random());
   }
@@ -45,41 +45,41 @@ const AppContainer = createStackNavigator(
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Ionicons name="ios-home" size={24} color={tintColor} />
-            )
-          }
+            ),
+          },
         },
         Message: {
           screen: MessageScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Ionicons name="ios-chatbubbles" size={24} color={tintColor} />
-            )
-          }
+            ),
+          },
         },
         Post: {
           screen: PostScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Ionicons name="ios-add-circle" size={48} color="#00cb9f" />
-            )
-          }
+            ),
+          },
         },
         Notification: {
           screen: NotificationScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Ionicons name="ios-notifications" size={24} color={tintColor} />
-            )
-          }
+            ),
+          },
         },
         Profile: {
           screen: ProfileScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Ionicons name="ios-person" size={24} color={tintColor} />
-            )
-          }
-        }
+            ),
+          },
+        },
       },
       {
         defaultNavigationOptions: {
@@ -89,28 +89,28 @@ const AppContainer = createStackNavigator(
             } else {
               defaultHandler();
             }
-          }
+          },
         },
         tabBarOptions: {
           activeTintColor: "#161F3D",
           inactiveTintColor: "#B8BBC4",
-          showLabel: false
-        }
+          showLabel: false,
+        },
       }
     ),
     postModal: {
-      screen: PostScreen
-    }
+      screen: PostScreen,
+    },
   },
   {
     mode: "modal",
-    headerMode: "none"
+    headerMode: "none",
   }
 );
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
-  Register: RegisterScreen
+  Register: RegisterScreen,
 });
 
 export default createAppContainer(
@@ -118,10 +118,10 @@ export default createAppContainer(
     {
       Loading: LoadingScreen,
       App: AppContainer,
-      Auth: AuthStack
+      Auth: AuthStack,
     },
     {
-      initialRouteName: "Loading"
+      initialRouteName: "Auth",
     }
   )
 );
