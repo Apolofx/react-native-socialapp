@@ -18,7 +18,7 @@ Este es el metodo que usamos para registrar usuarios nuevos en la _RegisterScree
 firebase
   .auth()
   .createUserWithEmailAndPassword(email, password)
-  .catch(function(error) {
+  .catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -34,7 +34,7 @@ Este es el metodo que usamos para acceso de usuarios ya registrados en la _Login
 firebase
   .auth()
   .signInWithEmailAndPassword(email, password)
-  .catch(function(error) {
+  .catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -47,7 +47,7 @@ firebase
 Este es el metodo que usamos para decidir a que screen dirigimos al usuario durante la carga de la app en la _LoadingScreen.js_.
 
 ```javascript
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
     var displayName = user.displayName;
@@ -100,10 +100,10 @@ if (user != null) {
 firebase
   .auth()
   .signOut()
-  .then(function() {
+  .then(function () {
     // Sign-out successful.
   })
-  .catch(function(error) {
+  .catch(function (error) {
     // An error happened.
   });
 ```
@@ -172,41 +172,41 @@ const AppTabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-home" size={24} color={tintColor} />
-      )
-    }
+      ),
+    },
   },
   Message: {
     screen: MessageScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-chatbubbles" size={24} color={tintColor} />
-      )
-    }
+      ),
+    },
   },
   Post: {
     screen: PostScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-add-circle" size={24} color={tintColor} />
-      )
-    }
+      ),
+    },
   },
   Notification: {
     screen: NotificationScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-notifications" size={24} color={tintColor} />
-      )
-    }
+      ),
+    },
   },
   Profile: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-person" size={24} color={tintColor} />
-      )
-    }
-  }
+      ),
+    },
+  },
 });
 ```
 
@@ -309,7 +309,7 @@ El problema se "solucionó" instalando base-64 con `npm install base-64` y agreg
 ```javascript
 import { decode, encode } from "base-64";
 global.crypto = require("@firebase/firestore");
-global.crypto.getRandomValues = byteArray => {
+global.crypto.getRandomValues = (byteArray) => {
   for (let i = 0; i < byteArray.length; i++) {
     byteArray[i] = Math.floor(256 * Math.random());
   }
@@ -323,3 +323,7 @@ if (!global.atob) {
   global.atob = decode;
 }
 ```
+
+## FlatLists
+
+## Layout Animation
